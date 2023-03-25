@@ -16,11 +16,18 @@ static const char *TAG = "MAIN";
 #define BLINK_GPIO 2 // CONFIG_BLINK_GPIO
 #define BUTTON_GPIO 12
 
-void single_click_action() {
+void single_click_action()
+{
     ESP_LOGI(TAG, "Single click detected");
 }
 
-void long_press_action() {
+void double_click_action()
+{
+    ESP_LOGI(TAG, "Double click detected");
+}
+
+void long_press_action()
+{
     ESP_LOGI(TAG, "Long press detected");
 }
 
@@ -41,10 +48,11 @@ void button_task(void *parameters)
 {
     CButton *button;
     button = (CButton *)parameters;
-    
-    while(1) {
+
+    while (1)
+    {
         button->tick();
-        vTaskDelay(100 / portTICK_PERIOD_MS);
+        vTaskDelay(1);
     }
 }
 
@@ -60,6 +68,7 @@ extern "C" void app_main(void)
 
     CButton button1(BUTTON_GPIO);
     button1.attachSingleClick(single_click_action);
+    button1.attachDoubleClick(double_click_action);
     button1.attachLongPress(long_press_action);
 
     // Create tasks
@@ -73,14 +82,14 @@ extern "C" void app_main(void)
     //             &xHandle);     // task handler
     // ESP_LOGI(TAG, "LED task created.");
 
-    xTaskCreate(button_task,     // Task function
-                "button",     // Name of task in task scheduler
-                1024 * 5,      // Stack size
+    xTaskCreate(button_task,      // Task function
+                "button",         // Name of task in task scheduler
+                1024 * 5,         // Stack size
                 (void *)&button1, // Parameter send to function
-                1,             // Priority
-                &xHandle);     // task handler
+                1,                // Priority
+                &xHandle);        // task handler
     ESP_LOGI(TAG, "BUTTON task created.");
-    
+
     ESP_LOGI(TAG, "All tasks created");
 
     // Main loop

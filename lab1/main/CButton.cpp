@@ -30,18 +30,32 @@ void CButton::tick()
             break;
         case 1:
             m_lastRelease = esp_timer_get_time();
+            click_counter++;
             if (m_lastRelease - m_lastPress > SHORT_CLICK_AT_MOST)
             {
                 longPress();
+                click_counter = 0;
             }
             else
             {
-                singleClick();
+                if (click_counter > 1)
+                {
+                    doubleClick();
+                    click_counter = 0;
+                }
             }
             break;
         default:
             break;
         }
+        m_lastState = state;
     }
-    m_lastState = state;
+    if (click_counter > 0)
+    {
+        if (esp_timer_get_time() - m_lastRelease > DOUBLE_CLICK_INBETWEEN_AT_MOST)
+        {
+            singleClick();
+            click_counter = 0;
+        }
+    }
 }
