@@ -16,10 +16,16 @@ static const char *TAG = "MAIN";
 #define BLINK_GPIO 2 // CONFIG_BLINK_GPIO
 #define BUTTON_GPIO 12
 
-void task_loop(void *parameters)
-{
-    ESP_LOGI(TAG, "Start TASK Loop.");
+void single_click_action() {
+    ESP_LOGI(TAG, "Single click detected");
+}
 
+void long_press_action() {
+    ESP_LOGI(TAG, "Long press detected");
+}
+
+void led_task(void *parameters)
+{
     CLed *led;
     led = (CLed *)parameters;
 
@@ -31,10 +37,8 @@ void task_loop(void *parameters)
     }
 }
 
-void task_button(void *parameters)
+void button_task(void *parameters)
 {
-    ESP_LOGI(TAG, "Start TASK Button.");
-
     CButton *button;
     button = (CButton *)parameters;
     
@@ -52,30 +56,32 @@ extern "C" void app_main(void)
     ESP_LOGI(TAG, "Start MAIN.");
 
     CLed led1(BLINK_GPIO);
-
     led1.setLedState(LedStatus::BLINK);
 
     CButton button1(BUTTON_GPIO);
+    button1.attachSingleClick(single_click_action);
+    button1.attachLongPress(long_press_action);
 
-    // Create Task
+    // Create tasks
+    ESP_LOGI(TAG, "Creating tasks");
 
-    ESP_LOGI(TAG, "Start Task Create.");
-    xTaskCreate(task_loop,     // Task function
-                "ledLoop",     // Name of task in task scheduler
-                1024 * 5,      // Stack size
-                (void *)&led1, // Parameter send to function
-                1,             // Priority
-                &xHandle);     // task handler
-    ESP_LOGI(TAG, "Task Created.");
+    // xTaskCreate(led_task,     // Task function
+    //             "led",     // Name of task in task scheduler
+    //             1024 * 5,      // Stack size
+    //             (void *)&led1, // Parameter send to function
+    //             1,             // Priority
+    //             &xHandle);     // task handler
+    // ESP_LOGI(TAG, "LED task created.");
 
-    ESP_LOGI(TAG, "Start Task Create.");
-    xTaskCreate(task_button,     // Task function
-                "buttonLoop",     // Name of task in task scheduler
+    xTaskCreate(button_task,     // Task function
+                "button",     // Name of task in task scheduler
                 1024 * 5,      // Stack size
                 (void *)&button1, // Parameter send to function
                 1,             // Priority
                 &xHandle);     // task handler
-    ESP_LOGI(TAG, "Task Created.");
+    ESP_LOGI(TAG, "BUTTON task created.");
+    
+    ESP_LOGI(TAG, "All tasks created");
 
     // Main loop
     while (1)
