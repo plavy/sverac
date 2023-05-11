@@ -1,9 +1,10 @@
 #ifndef _DS1307_h
 #define _DS1307_h
 
-uint8_t intToBCD(uint8_t num);
 
-uint8_t bcdToInt(uint8_t bcd);
+uint8_t uint8ToBCD(uint8_t num);
+
+uint8_t bcdToUint8(uint8_t bcd);
 
 char *timeToString(struct tm tm);
 
@@ -12,10 +13,10 @@ time_t timeToUnix(struct tm tm, int utc_offset);
 class DS1307{
     public:
         DS1307(int sda_io, int scl_io, int address, int clk_speed);
-        void setTime(struct tm);
+        int getRegister(int reg);
         struct tm getTime();
         void setRegister(int reg, int value);
-        int getRegister(int reg);
+        void setTime(struct tm);
 
     private:
         int address;
