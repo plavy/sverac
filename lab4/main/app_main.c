@@ -92,6 +92,9 @@ static int ble_gap_event(struct ble_gap_event *event, void *arg)
         ESP_LOGI("GAP", "BLE GAP EVENT");
         ble_app_advertise();
         break;
+    case BLE_GAP_EVENT_DISCONNECT:
+        ESP_LOGI("GAP", "Disconneted");
+        ble_app_advertise();
     default:
         break;
     }
