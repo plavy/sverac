@@ -1,0 +1,50 @@
+{
+  "name": "I2C Lock",
+  "author": "Hrvoje Mlinarić",
+  "pins": [
+    "",
+    "SCL",
+    "SDA",
+    "GND",
+    "VCC",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "LED_R",
+    "LED_G",
+    "LED_B",
+    "",
+    "D4",
+    "G",
+    "C",
+    "DOT",
+    "D",
+    "E",
+    "D1",
+    "A",
+    "F",
+    "D2",
+    "D3",
+    "B",
+    ""
+  ],
+  "controls": [
+    {
+      "id": "threshold",
+      "label": "LED Threshold",
+      "type": "range",
+      "min": 1,
+      "max": 255,
+      "step": 1
+    }
+  ]
+}

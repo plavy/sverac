@@ -1,0 +1,33 @@
+{
+  "name": "FER1 Sensor",
+  "author": "Hrvoje Mlinaric",
+  "pins": [
+    "",
+    "DATA_IN",
+    "DATA_OUT",
+    "",
+    "",
+    "GND",
+    "VCC",
+    ""
+    
+  ],
+   "controls": [
+    {
+      "id": "temp",
+      "label": "Themperature",
+      "type": "range",
+      "min": 0,
+      "max": 45,
+      "step": 1
+    },
+    {
+      "id": "hum",
+      "label": "humidity",
+      "type": "range",
+      "min": 0,
+      "max": 99,
+      "step": 1
+    }
+  ]
+}

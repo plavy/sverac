@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "author": "Hrvoje Mlinaric",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": -42, "left": -162, "attrs": {} },
+    { "type": "chip-i2c-lock", "id": "lock", "top": -198.32, "left": -28.55, "attrs": {} },
+    {
+      "type": "wokwi-7segment",
+      "id": "sevseg1",
+      "top": -9.58,
+      "left": -4.98,
+      "attrs": { "digits": "4" }
+    },
+    {
+      "type": "wokwi-rgb-led",
+      "id": "rgb1",
+      "top": -154.53,
+      "left": 128.4,
+      "rotate": 90,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-membrane-keypad",
+      "id": "keypad1",
+      "top": -228.08,
+      "left": -423.67,
+      "attrs": { "columns": "3" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX0", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX0", "$serialMonitor:TX", "", [] ],
+    [ "sevseg1:B", "lock:B", "green", [ "v0" ] ],
+    [ "sevseg1:DIG3", "lock:D3", "green", [ "v0" ] ],
+    [ "sevseg1:DIG2", "lock:D2", "green", [ "v0" ] ],
+    [ "sevseg1:F", "lock:F", "green", [ "v0" ] ],
+    [ "sevseg1:A", "lock:A", "green", [ "v0" ] ],
+    [ "sevseg1:DIG1", "lock:D1", "green", [ "v0" ] ],
+    [ "sevseg1:E", "lock:E", "green", [ "v11.63", "h-74.81", "v-70.96" ] ],
+    [ "sevseg1:D", "lock:D", "green", [ "v17.34", "h-91.75", "v-63.62" ] ],
+    [ "sevseg1:DP", "lock:DOT", "green", [ "v23.05", "h-109.51", "v-47.3" ] ],
+    [ "sevseg1:C", "lock:C", "green", [ "v29.57", "h-127.27", "v-23.65" ] ],
+    [ "sevseg1:G", "lock:G", "green", [ "v35.28", "h-144.21", "v-21.21" ] ],
+    [ "sevseg1:DIG4", "lock:D4", "green", [ "v41.81", "h-162.78", "v-63.62" ] ],
+    [ "rgb1:R", "lock:LED_R", "green", [ "h-24.05", "v191.27" ] ],
+    [ "rgb1:G", "lock:LED_G", "green", [ "h-8.13", "v163.77" ] ],
+    [ "rgb1:B", "lock:LED_B", "green", [ "h-15.99", "v144.87" ] ],
+    [ "lock:GND", "esp:GND.1", "black", [ "h-31.69", "v-0.99" ] ],
+    [ "lock:VCC", "esp:3V3", "red", [ "h-26.69", "v94.42" ] ],
+    [ "esp:D22", "lock:SDA", "green", [ "h19.44", "v9.68" ] ],
+    [ "lock:SCL", "esp:D23", "green", [ "h-22.4", "v-5.48" ] ],
+    [ "lock:VCC", "rgb1:COM", "red", [ "h-13.71", "v-66.52", "h166.87" ] ],
+    [ "keypad1:C1", "esp:D32", "green", [ "v19.67", "h111.11", "v-91.47" ] ],
+    [ "keypad1:R4", "esp:D33", "green", [ "v24.63", "h128.03", "v-102.49" ] ],
+    [ "keypad1:R3", "esp:D25", "green", [ "v29.59", "h145.24", "v-94.78" ] ],
+    [ "keypad1:C3", "esp:D26", "green", [ "v7.65", "h75.93", "v-56.5" ] ],
+    [ "keypad1:C2", "esp:D27", "green", [ "v12.24", "h93.9", "v-49.79" ] ],
+    [ "keypad1:R2", "esp:D14", "green", [ "v35.19", "h162.06", "v-66.39" ] ],
+    [ "keypad1:R1", "esp:D12", "green", [ "v39.78", "h178.63", "v-58.97" ] ]
+  ],
+  "dependencies": {}
+}
